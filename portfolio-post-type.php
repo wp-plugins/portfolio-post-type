@@ -3,7 +3,7 @@
 Plugin Name: Portfolio Post Type
 Plugin URI: http://www.wptheming.com
 Description: Enables a portfolio post type and taxonomies.
-Version: 0.1
+Version: 0.2
 Author: Devin Price
 Author URI: http://wptheming.com/portfolio-post-type/
 License: GPLv2
@@ -62,11 +62,11 @@ function portfolioposttype() {
 		'separate_items_with_commas' => _x( 'Separate portfolio tags with commas', 'portfolioposttype' ),
 		'add_or_remove_items' => _x( 'Add or remove portfolio tags', 'portfolioposttype' ),
 		'choose_from_most_used' => _x( 'Choose from the most used portfolio tags', 'portfolioposttype' ),
-		'menu_name' => _x( 'Portfolio Tags', 'portfolioposttype' ),
+		'menu_name' => _x( 'Portfolio Tags', 'portfolioposttype' )
 	);
 	
 	$taxonomy_portfolio_tag_args = array(
-		'labels' => $labels,
+		'labels' => $taxonomy_portfolio_tag_labels,
 		'public' => true,
 		'show_in_nav_menus' => true,
 		'show_ui' => true,
@@ -132,7 +132,7 @@ function portfolioposttype_edit_columns($portfolio_columns){
 		"cb" => "<input type=\"checkbox\" />",
 		"title" => _x('Title', 'column name'),
 		"thumbnail" => __('Thumbnail', 'portfolioposttype'),
-		"portfolio-tags" => __('Tags', 'portfolioposttype'),
+		"portfolio_tag" => __('Tags', 'portfolioposttype'),
 		"author" => __('Author', 'portfolioposttype'),
 		"comments" => __('Comments', 'portfolioposttype'),
 		"date" => __('Date', 'portfolioposttype'),
@@ -140,6 +140,8 @@ function portfolioposttype_edit_columns($portfolio_columns){
 	$portfolio_columns['comments'] = '<div class="vers"><img alt="Comments" src="' . esc_url( admin_url( 'images/comment-grey-bubble.png' ) ) . '" /></div>';
 	return $portfolio_columns;
 }
+
+add_filter('manage_edit-portfolio_columns', 'portfolioposttype_edit_columns');
  
 function portfolioposttype_columns_display($portfolio_columns, $post_id){
 
@@ -165,9 +167,9 @@ function portfolioposttype_columns_display($portfolio_columns, $post_id){
 			break;	
 			
 			// Display the portfolio tags in the column view
-			case "portfolio-tags":
+			case "portfolio_tag":
 			
-			if ( $tag_list = get_the_term_list( $post_id, 'portfolio-tags', '', ', ', '' ) ) {
+			if ( $tag_list = get_the_term_list( $post_id, 'portfolio_tag', '', ', ', '' ) ) {
 				echo $tag_list;
 			} else {
 				echo __('None', 'portfolioposttype');
@@ -175,8 +177,6 @@ function portfolioposttype_columns_display($portfolio_columns, $post_id){
 			break;			
 	}
 }
-
-add_filter('manage_edit-portfolio_columns', 'portfolioposttype_edit_columns');
 
 add_action('manage_posts_custom_column',  'portfolioposttype_columns_display', 10, 2);
 
