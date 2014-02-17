@@ -3,7 +3,7 @@ Contributors: downstairsdev, garyj
 Tags: portfolio, post type
 Requires at least: 3.4
 Tested up to: 3.8
-Stable tag: 0.8.0
+Stable tag: 0.8.1
 License: GPLv2 or later
 
 == Description ==
