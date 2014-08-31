@@ -12,7 +12,7 @@
  * Plugin Name: Portfolio Post Type
  * Plugin URI:  http://wptheming.com/portfolio-post-type/
  * Description: Enables a portfolio post type and taxonomies.
- * Version:     0.9.0
+ * Version:     0.9.1
  * Author:      Devin Price
  * Author URI:  http://www.wptheming.com/
  * Text Domain: portfolioposttype
@@ -48,7 +48,7 @@ register_activation_hook( __FILE__, array( $portfolio_post_type, 'activate' ) );
 // Initialise registrations for post-activation requests.
 $portfolio_post_type_registrations->init();
 
-add_action( 'init', 'portfolio_post_type_init' );
+add_action( 'init', 'portfolio_post_type_init', 100 );
 /**
  * Adds styling to the dashboard for the post type and adds portfolio posts
  * to the "At a Glance" metabox.
